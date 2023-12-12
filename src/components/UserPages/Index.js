@@ -150,7 +150,7 @@ const Index = (props) => {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        {`Hello, ${userData.username}`}
+                        {userData ? `Hello, ${userData.username}` : "Hello"}
                       </button>
                       <div className="dropdown-menu">
                         <button

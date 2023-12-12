@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import {
-  deleteDataProduct,
-} from "../../actionCreators/AdminAction";
+import { deleteDataProduct } from "../../actionCreators/AdminAction";
 import { useDispatch } from "react-redux";
 
 import { Modal, Button, Alert } from "react-bootstrap";
@@ -10,7 +8,6 @@ import EditProductModal from "./AdminProductEdit";
 import AddProductModal from "./AdminProductAdd";
 
 const AdminProduct = (props) => {
-  const urlLocalhost = `${process.env.REACT_APP_API_URL}`;
   const dispatch = useDispatch();
   // ADD MODAL FORM.
   const [showAddModal, setShowAddModal] = useState(false);
@@ -109,20 +106,34 @@ const AdminProduct = (props) => {
     // Implement the logic for displaying the product image
     return {
       backgroundImage: `url(${image})`,
-      backgroundSize: 'cover',
-      height: '200px', // Adjust the height as needed
+      backgroundSize: "cover",
+      height: "200px", // Adjust the height as needed
     };
   };
+  // useEffect(() => {
+  //   // Fetch product data from your DynamoDB API endpoint
+  //   fetch(`${urlLocalhost}/products/get`)  // Adjust the endpoint as needed
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setDataProduct(data.products);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching product data:', error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    // Fetch product data from your DynamoDB API endpoint
-    fetch(`${urlLocalhost}/product/get`)  // Adjust the endpoint as needed
-      .then((response) => response.json())
-      .then((data) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/products/get");
+        const data = await response.json();
         setDataProduct(data.products);
-      })
-      .catch((error) => {
-        console.error('Error fetching product data:', error);
-      });
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -134,59 +145,59 @@ const AdminProduct = (props) => {
       </button>
 
       <div className="mx-4 my-3">
-      <div className="row">
-        {dataProduct.map((item, index) => (
-          <div className="col-md-3 mt-4" key={index}>
-            <div className="card">
-              <div
-                style={picture(item.image.S)}
-                className="card-img-top"
-                alt="..."
-              />
-              <div className="card-body">
-                <p className="font-weight-bold my-0">{item.name.S}</p>
-                <small className="card-text text-secondary">
-                  Stock : {item.quantity.N}
-                </small>
-                <div className="d-flex d-row mb-3 justify-content-center">
-                  <button
-                    className="btn ml-3"
-                    style={{
-                      borderRadius: "7px",
-                      backgroundColor: "#dedede",
-                    }}
-                  >
-                    {item.productType.S}
-                  </button>
-                </div>
+        <div className="row">
+          {dataProduct.map((item, index) => (
+            <div className="col-md-3 mt-4" key={index}>
+              <div className="card">
+                <div
+                  style={picture(item.image.S)}
+                  className="card-img-top"
+                  alt="..."
+                />
+                <div className="card-body">
+                  <p className="font-weight-bold my-0">{item.name.S}</p>
+                  <small className="card-text text-secondary">
+                    Stock : {item.quantity.N}
+                  </small>
+                  <div className="d-flex d-row mb-3 justify-content-center">
+                    <button
+                      className="btn ml-3"
+                      style={{
+                        borderRadius: "7px",
+                        backgroundColor: "#dedede",
+                      }}
+                    >
+                      {item.productType.S}
+                    </button>
+                  </div>
 
-                <p>{item.description.S}</p>
-                <div className="d-flex d-row mt-4">
-                  <p className="my-0 text-success-s2 font-weight-bold">
-                    ${item.price.N}
-                  </p>
-                  <div className="d-flex d-row ml-auto">
-                    <button
-                      className="btn btn-warning mr-2"
-                      onClick={() => displayEditModal(item)}
-                    >
-                      <i className="far fa-edit fa-lg"></i>
-                    </button>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => displayDeleteModal(item)}
-                    >
-                      <i className="far fa-trash-alt fa-lg"></i>
-                    </button>
+                  <p>{item.description.S}</p>
+                  <div className="d-flex d-row mt-4">
+                    <p className="my-0 text-success-s2 font-weight-bold">
+                      ${item.price.N}
+                    </p>
+                    <div className="d-flex d-row ml-auto">
+                      <button
+                        className="btn btn-warning mr-2"
+                        onClick={() => displayEditModal(item)}
+                      >
+                        <i className="far fa-edit fa-lg"></i>
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => displayDeleteModal(item)}
+                      >
+                        <i className="far fa-trash-alt fa-lg"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+        <DeleteProductModal />
       </div>
-      <DeleteProductModal />
-    </div>
 
       <AddProductModal
         showAddModal={showAddModal}
@@ -198,7 +209,7 @@ const AdminProduct = (props) => {
         dataEdit={dataEdit}
         unDisplayEditModal={unDisplayEditModal}
       />
-      
+
       <DeleteProductModal />
     </div>
   );

@@ -81,7 +81,7 @@ const AdminUsers = (props) => {
           </Tr>
         </Thead>
         <Tbody>
-          {dataUser.map((item, index) => (
+          {dataUser?.map((item, index) => (
             <Tr key={index}>
               <Td className="text-justify text-center">{index + 1}</Td>
               <Td className="text-justify text-center">{item.username}</Td>

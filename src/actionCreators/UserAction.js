@@ -11,7 +11,7 @@ export const getDataProduct = () => {
     });
 
     try {
-      const response = await axios.get(`${url}/product/getproduct`);
+      const response = await axios.get(`${url}/products/get`);
       const output = response.data;
 
       dispatch({
