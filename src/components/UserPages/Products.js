@@ -29,7 +29,7 @@ const Products = (props) => {
   };
   const picture = (image) => {
     return {
-      backgroundImage: `url(${urlLocalhost}/${image})`,
+      backgroundImage: `url(${image})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       marginTop: "1rem",
@@ -70,7 +70,7 @@ const Products = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8081/product/get');
+        const response = await fetch('http://localhost:8081/products/get');
         const data = await response.json();
         setProducts(data.products);
       } catch (error) {
@@ -87,7 +87,7 @@ const Products = (props) => {
         fontFamily: "Karla,sans-serif",
       }}
     >
-       <div className="row">
+       {/* <div className="row">
       {products.map((product) => (
         <div key={product.productid.S} className="col-md-4 mt-4">
           <div className="card">
@@ -120,8 +120,8 @@ const Products = (props) => {
           </div>
         </div>
       ))}
-    </div>
-      {/* <Loader isProductLoading={props.isProductLoading} />
+    </div> */}
+      <Loader isProductLoading={props.isProductLoading} />
       <div className="row">
         {arrayDataProduct.length !== 0 ? (
           arrayDataProduct.map((item, index) => {
@@ -130,7 +130,6 @@ const Products = (props) => {
                 <div className="card">
                   <div
                     className="product-showdetail"
-                    // kalau tanpa ()=> nanti ulang render terus ga bisa jalan
                     onClick={() => showDetail(item)}
                   >
                     <div
@@ -198,7 +197,7 @@ const Products = (props) => {
         </div>
       ) : (
         <> </>
-      )} */}
+      )}
       <ProductDetailModal
         showDetailModal={showDetailModal}
         unDisplayDetailModal={unDisplayDetailModal}

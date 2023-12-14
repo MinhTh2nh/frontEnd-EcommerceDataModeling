@@ -7,7 +7,7 @@ const initialState = {
   },
 };
 
-const AdminUserReducer = (state = initialState, action) => {
+const AdminProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_DATA_PRODUCT":
       return {
@@ -60,4 +60,4 @@ const AdminUserReducer = (state = initialState, action) => {
   }
 };
 
-export default AdminUserReducer;
+export default AdminProductReducer;
