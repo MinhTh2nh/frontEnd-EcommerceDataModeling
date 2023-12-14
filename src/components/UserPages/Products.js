@@ -29,7 +29,7 @@ const Products = (props) => {
   };
   const picture = (image) => {
     return {
-      backgroundImage: `url(${urlLocalhost}/${image})`,
+      backgroundImage: `url(${image})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       marginTop: "1rem",

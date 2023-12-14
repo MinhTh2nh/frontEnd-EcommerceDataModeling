@@ -41,7 +41,7 @@ const ProductDetailModal = (props) => {
       pictureChecked = picture;
     }
     return {
-      backgroundImage: `url(${urlLocalhost}/${pictureChecked})`,
+      backgroundImage: `url(${pictureChecked})`,
       backgroundSize: "cover",
       backgroundPosition: "center",
       height: "17rem",
@@ -76,7 +76,7 @@ const ProductDetailModal = (props) => {
             <div className="col-md-6 px-5 py-3 align-self-center">
               <div style={picture(Image)} alt="..." className="w-100 mb-3" />
 
-              <div className="d-flex d-row justify-content-center">
+              {/* <div className="d-flex d-row justify-content-center">
                 <div
                   className="mini-picture mr-3"
                   onClick={() => changeImage(props.dataProduct.image)}
@@ -104,7 +104,7 @@ const ProductDetailModal = (props) => {
                 >
                   <div style={miniPicture(samplePhoto3)} alt="..." />
                 </div>
-              </div>
+              </div> */}
             </div>
 
             <div className="col-md-6 px-5 py-3 border-left">
@@ -133,12 +133,6 @@ const ProductDetailModal = (props) => {
               </button>
 
               <div className="d-flex d-row">
-                <div
-                  className="px-3 py-2"
-                  style={{ borderRadius: "7px", backgroundColor: "#dedede" }}
-                >
-                  {props.dataProduct.productGender}
-                </div>
                 <div
                   className="px-3 py-2 ml-3"
                   style={{ borderRadius: "7px", backgroundColor: "#dedede" }}
